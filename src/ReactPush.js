@@ -19,7 +19,7 @@ class ReactPush {
     }
     
     this.apiKey = config.apiKey;
-    this.apiUrl = config.apiUrl || 'http://localhost:5000';
+    this.apiUrl = config.apiUrl || 'https://reactpush.com';
     this.appVersion = config.appVersion;
     this.deviceId = null; // Will be loaded asynchronously
     this.userId = config.userId || null;

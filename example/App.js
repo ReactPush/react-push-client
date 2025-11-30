@@ -15,8 +15,7 @@ import PushNotificationService from './src/PushNotificationService';
 
 // API Key for ReactPush
 const API_KEY = 'q7AkvRhS3ayisrOJyF1dqWxxUfVyPp1OlBIEg2PBMoU';
-// Use localhost in debug mode, production URL otherwise
-const API_URL = __DEV__ ? 'http://localhost:8686' : 'https://reactpush.com';
+const API_URL = 'https://reactpush.com';
 const APP_VERSION = '0.0.1';
 
 export default function App() {
