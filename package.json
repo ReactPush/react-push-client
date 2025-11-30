@@ -1,0 +1,27 @@
+{
+  "name": "react-push-client",
+  "version": "1.0.0",
+  "description": "React Native client library for ReactPush update system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "codepush",
+    "ota",
+    "updates"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": ">=0.60.0"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.21.0",
+    "react-native-crypto": "^2.2.1",
+    "react-native-fs": "^2.20.0",
+    "react-native-restart": "^0.0.27",
+    "react-native-zip-archive": "^6.0.15"
+  }
+}

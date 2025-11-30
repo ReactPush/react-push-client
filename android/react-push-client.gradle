@@ -1,0 +1,32 @@
+// Auto-linking script for react-push-client Android native files
+// This script automatically adds the ReactPush source files to the build
+
+afterEvaluate {
+    // Try to find react-push-client in node_modules
+    def nodeModulesPath = project.rootProject.file("../node_modules/react-push-client")
+    if (!nodeModulesPath.exists()) {
+        // Try alternative path (for monorepos or different structures)
+        nodeModulesPath = project.rootProject.file("../../node_modules/react-push-client")
+    }
+
+    if (nodeModulesPath.exists()) {
+        def sourcePath = new File(nodeModulesPath, "android/src/main/java")
+        if (sourcePath.exists() && android.hasProperty('sourceSets')) {
+            android.sourceSets {
+                main {
+                    java {
+                        srcDirs += [sourcePath.absolutePath]
+                    }
+                }
+            }
+            println "✅ react-push-client: Auto-linked Android native files from ${sourcePath.absolutePath}"
+        } else {
+            if (!sourcePath.exists()) {
+                println "⚠️  react-push-client: Android source directory not found at ${sourcePath.absolutePath}"
+            }
+        }
+    } else {
+        println "⚠️  react-push-client: Package not found in node_modules. Make sure 'react-push-client' is installed."
+    }
+}
+
