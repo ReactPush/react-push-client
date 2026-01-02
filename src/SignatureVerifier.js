@@ -83,12 +83,25 @@ export async function verifyUpdateSignature(publicKeyBase64, update, signatureBa
     const signatureBuffer = Buffer.from(signatureBase64, 'base64');
     const publicKeyBuffer = Buffer.from(publicKeyBase64, 'base64');
 
-    // Import public key
-    const publicKey = crypto.createPublicKey({
-      key: publicKeyBuffer,
-      format: 'der',
-      type: 'pkcs1',
-    });
+    // Import public key. Try PKCS#1 then fall back to SPKI (common "BEGIN PUBLIC KEY")
+    let publicKey;
+    try {
+      publicKey = crypto.createPublicKey({
+        key: publicKeyBuffer,
+        format: 'der',
+        type: 'pkcs1',
+      });
+    } catch (errPkcs1) {
+      try {
+        publicKey = crypto.createPublicKey({
+          key: publicKeyBuffer,
+          format: 'der',
+          type: 'spki',
+        });
+      } catch (errSpki) {
+        throw new Error(`Failed to parse public key as PKCS#1 or SPKI: ${errSpki.message}`);
+      }
+    }
 
     // Create hash
     const hash = crypto.createHash('sha256').update(payloadBuffer).digest();
